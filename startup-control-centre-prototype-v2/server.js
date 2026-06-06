@@ -17,6 +17,82 @@ const currency = new Intl.NumberFormat('en-AU', { style: 'currency', currency: '
 const today = () => new Date().toISOString().slice(0, 10);
 const monthNow = () => new Date().toISOString().slice(0, 7);
 
+const linkCount = db.prepare(
+  "SELECT COUNT(*) AS count FROM important_links"
+).get().count;
+
+if (linkCount === 0) {
+  const insert = db.prepare(`
+    INSERT INTO important_links
+    (title,url,category,notes)
+    VALUES (?,?,?,?)
+  `);
+
+  insert.run(
+    "ABN Lookup",
+    "https://abr.business.gov.au/",
+    "Government",
+    "ABN search"
+  );
+
+  insert.run(
+    "ATO Business",
+    "https://www.ato.gov.au/businesses-and-organisations",
+    "Tax",
+    "Australian Tax Office"
+  );
+
+  insert.run(
+    "Render",
+    "https://render.com",
+    "Hosting",
+    "Hosting dashboard"
+  );
+
+  insert.run(
+    "Turso",
+    "https://turso.tech",
+    "Database",
+    "Database hosting"
+  );
+
+  insert.run(
+    "Vercel",
+    "https://vercel.com",
+    "Hosting",
+    "Frontend hosting"
+  );
+
+  insert.run(
+    "OpenAI",
+    "https://platform.openai.com",
+    "AI",
+    "API billing"
+  );
+
+  insert.run(
+    "Stripe",
+    "https://dashboard.stripe.com",
+    "Payments",
+    "Subscriptions"
+  );
+
+  insert.run(
+    "GitHub",
+    "https://github.com",
+    "Code",
+    "Repositories"
+  );
+
+  insert.run(
+    "Cloudflare",
+    "https://dash.cloudflare.com",
+    "DNS",
+    "Domains and email routing"
+  );
+}
+
+
 app.use((req, res, next) => {
   res.locals.currency = (n) => currency.format(Number(n || 0));
   res.locals.today = today();
@@ -142,6 +218,45 @@ app.get('/export/:table.csv', (req, res) => {
   res.setHeader('Content-Type','text/csv');
   res.setHeader('Content-Disposition', `attachment; filename="${req.params.table}.csv"`);
   res.send(csv);
+});
+
+app.get("/important-links", (req, res) => {
+  const rows = db.prepare(`
+    SELECT *
+    FROM important_links
+    ORDER BY category, title
+  `).all();
+
+  res.render("important-links", {
+    title: "Important Links",
+    rows
+  });
+});
+
+app.post("/important-links", (req, res) => {
+  const p = req.body;
+
+  db.prepare(`
+    INSERT INTO important_links
+    (title,url,category,notes)
+    VALUES (?,?,?,?)
+  `).run(
+    p.title,
+    p.url,
+    p.category,
+    p.notes
+  );
+
+  res.redirect("/important-links");
+});
+
+app.post("/important-links/delete/:id", (req, res) => {
+  db.prepare(`
+    DELETE FROM important_links
+    WHERE id = ?
+  `).run(req.params.id);
+
+  res.redirect("/important-links");
 });
 
 app.listen(port, () => console.log(`Startup Control Centre running: http://localhost:${port}`));

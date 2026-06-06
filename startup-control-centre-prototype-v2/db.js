@@ -87,6 +87,15 @@ export function initDb() {
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
 
+    CREATE TABLE IF NOT EXISTS important_links (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  url TEXT NOT NULL,
+  category TEXT,
+  notes TEXT,
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
     CREATE TABLE IF NOT EXISTS reconciliations (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       month TEXT NOT NULL UNIQUE,

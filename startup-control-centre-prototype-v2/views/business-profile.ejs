@@ -1,0 +1,17 @@
+<%- include('layout-top') %>
+<h1>Business Profile</h1>
+<form method="post" class="panel form-grid">
+  <label>Business name <input name="business_name" value="<%= profile.business_name || '' %>"></label>
+  <label>Trading name <input name="trading_name" value="<%= profile.trading_name || '' %>"></label>
+  <label>ABN <input name="abn" value="<%= profile.abn || '' %>"></label>
+  <label>Website <input name="website" value="<%= profile.website || '' %>"></label>
+  <label>Email <input name="business_email" value="<%= profile.business_email || '' %>"></label>
+  <label>Phone <input name="business_phone" value="<%= profile.business_phone || '' %>"></label>
+  <label>Structure <input name="business_structure" value="<%= profile.business_structure || '' %>"></label>
+  <label>Financial year end <input name="financial_year_end" value="<%= profile.financial_year_end || '' %>"></label>
+  <label>Accountant name <input name="accountant_name" value="<%= profile.accountant_name || '' %>"></label>
+  <label>Accountant email <input name="accountant_email" value="<%= profile.accountant_email || '' %>"></label>
+  <label class="full">Notes <textarea name="notes"><%= profile.notes || '' %></textarea></label>
+  <button class="button">Save Profile</button>
+</form>
+<%- include('layout-bottom') %>

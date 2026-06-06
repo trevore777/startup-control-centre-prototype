@@ -1,0 +1,17 @@
+<%- include('layout-top') %>
+<h1>Reports</h1>
+<section class="cards">
+  <div class="card"><span>Net Income</span><strong><%= currency(totals.income) %></strong></div>
+  <div class="card"><span>Claimable Expenses</span><strong><%= currency(totals.expenses) %></strong></div>
+  <div class="card"><span>Profit / Loss</span><strong><%= currency(totals.profit) %></strong></div>
+  <div class="card"><span>Founder Implied Value</span><strong><%= currency(totals.workValue) %></strong></div>
+</section>
+<section class="grid two">
+<div class="panel"><h2>Monthly Summary</h2><table><thead><tr><th>Month</th><th>Income</th><th>Expenses</th><th>Profit/Loss</th></tr></thead><tbody>
+<% monthly.forEach(m=>{ %><tr><td><%= m.month %></td><td><%= currency(m.income) %></td><td><%= currency(m.expenses) %></td><td><%= currency(m.income-m.expenses) %></td></tr><% }) %>
+</tbody></table></div>
+<div class="panel"><h2>Expenses by Category</h2><table><thead><tr><th>Category</th><th>Total</th></tr></thead><tbody>
+<% categories.forEach(c=>{ %><tr><td><%= c.category %></td><td><%= currency(c.total) %></td></tr><% }) %>
+</tbody></table></div>
+</section>
+<%- include('layout-bottom') %>

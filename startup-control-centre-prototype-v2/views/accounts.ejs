@@ -1,0 +1,20 @@
+<%- include('layout-top') %>
+<h1>Accounts Register</h1>
+<p class="warning">Do not store real passwords here. Record where the password is safely stored.</p>
+<form method="post" class="panel form-grid">
+  <label>Service <input name="service" required></label>
+  <label>Purpose <input name="purpose"></label>
+  <label>Username/email <input name="username"></label>
+  <label>URL <input name="url"></label>
+  <label>Renewal date <input type="date" name="renewal_date"></label>
+  <label>Monthly cost <input type="number" step="0.01" name="monthly_cost"></label>
+  <label>Password location <input name="password_location" value="Apple Passwords / 1Password / Bitwarden"></label>
+  <label class="check"><input type="checkbox" name="two_factor_enabled"> 2FA enabled</label>
+  <label class="full">Notes <textarea name="notes"></textarea></label>
+  <button class="button">Add Account</button>
+</form>
+<table><thead><tr><th>Service</th><th>Purpose</th><th>Username</th><th>Renewal</th><th>Monthly</th><th>2FA</th><th></th></tr></thead><tbody>
+<% rows.forEach(r=>{ %><tr><td><%= r.service %></td><td><%= r.purpose %></td><td><%= r.username %></td><td><%= r.renewal_date %></td><td><%= currency(r.monthly_cost) %></td><td><%= r.two_factor_enabled ? 'Yes' : 'No' %></td><td><form method="post" action="/delete/accounts/<%= r.id %>"><button class="link danger">Delete</button></form></td></tr><% }) %>
+</tbody></table>
+<a class="button secondary" href="/export/accounts.csv">Export CSV</a>
+<%- include('layout-bottom') %>

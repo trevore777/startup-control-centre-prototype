@@ -1,0 +1,45 @@
+<%- include('layout-top') %>
+<h1>Dashboard</h1>
+<p class="muted">A simple startup management app for business records, income, expenses, due dates, reconciliation and founder time.</p>
+
+<section class="cards">
+  <div class="card"><span>Net Income</span><strong><%= currency(totals.income) %></strong></div>
+  <div class="card"><span>Claimable Expenses</span><strong><%= currency(totals.expenses) %></strong></div>
+  <div class="card"><span>Profit / Loss</span><strong><%= currency(totals.profit) %></strong></div>
+  <div class="card"><span>Founder Time</span><strong><%= totals.workHours.toFixed(1) %> hrs</strong><small><%= currency(totals.workValue) %> implied value</small></div>
+  <div class="card"><span>Due Soon</span><strong><%= totals.due %></strong></div>
+</section>
+
+<section class="grid two">
+  <div class="panel">
+    <h2>Business Snapshot</h2>
+    <p><strong><%= profile.business_name || 'Unnamed business' %></strong></p>
+    <p>ABN: <%= profile.abn || 'Not recorded' %></p>
+    <p>Website: <%= profile.website || 'Not recorded' %></p>
+    <a class="button" href="/business-profile">Edit profile</a>
+  </div>
+  <div class="panel">
+    <h2>Upcoming Due Dates</h2>
+    <% if (upcoming.length === 0) { %><p>No due dates recorded.</p><% } %>
+    <% upcoming.forEach(d => { %>
+      <div class="list-row"><strong><%= d.due_date %></strong> <%= d.title %> <span class="badge"><%= d.category %></span></div>
+    <% }) %>
+    <a class="button secondary" href="/due_dates">Manage due dates</a>
+  </div>
+</section>
+
+<section class="grid two">
+  <div class="panel"><h2>Recent Expenses</h2>
+    <% recentExpenses.forEach(e => { %><div class="list-row"><%= e.expense_date %> — <%= e.supplier %> — <%= currency(e.amount) %></div><% }) %>
+  </div>
+  <div class="panel"><h2>Recent Income</h2>
+    <% recentIncome.forEach(i => { %><div class="list-row"><%= i.income_date %> — <%= i.customer %> — <%= currency(i.gross_amount - i.stripe_fee) %></div><% }) %>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Startup Reference Guides</h2>
+  <p class="muted">Use this as a callback area for billing explanations, monthly checks and EOFY preparation notes.</p>
+  <a class="button" href="/guides">Open reference guides</a>
+</section>
+<%- include('layout-bottom') %>

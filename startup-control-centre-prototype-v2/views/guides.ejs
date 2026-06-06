@@ -1,0 +1,72 @@
+<%- include('layout-top') %>
+<h1>Reference Guides</h1>
+<p class="muted">Built-in business notes for startup setup, billing checks, tax preparation and monthly reconciliation.</p>
+
+<section class="grid two">
+  <div class="panel">
+    <h2>Turso / Database Billing Guide</h2>
+    <p>This guide is designed as a callback/reference for database billing when reviewing monthly costs.</p>
+    <div class="warning">
+      <strong>Important:</strong> Do not rely on this page for live pricing. Check your current Turso dashboard and invoice before tax or cash-flow decisions.
+    </div>
+    <h3>What to record each month</h3>
+    <ul>
+      <li>Plan name or tier</li>
+      <li>Monthly charge</li>
+      <li>Database/storage usage</li>
+      <li>Number of production databases</li>
+      <li>Any usage-based overage or extra charges</li>
+      <li>Invoice saved as PDF</li>
+    </ul>
+    <h3>Where to enter it in this app</h3>
+    <ul>
+      <li><strong>Accounts:</strong> add Turso as a service with renewal/billing date and password location.</li>
+      <li><strong>Expenses:</strong> record each invoice under category <em>Database</em>.</li>
+      <li><strong>Reconciliation:</strong> tick <em>Hosting/database invoice saved</em>.</li>
+      <li><strong>Due Dates:</strong> add a monthly check for database backup and billing review.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>OpenAI / AI API Billing Guide</h2>
+    <h3>What to track</h3>
+    <ul>
+      <li>Monthly API usage charge</li>
+      <li>Which app/project used the API</li>
+      <li>Whether the usage was development, testing or production</li>
+      <li>Invoice/receipt saved</li>
+      <li>Business-use percentage, usually 100% if only used for the app</li>
+    </ul>
+    <h3>Suggested expense category</h3>
+    <p>Use <strong>AI/API Usage</strong> or <strong>Software/API Services</strong> consistently.</p>
+  </div>
+</section>
+
+<section class="grid two">
+  <div class="panel">
+    <h2>Monthly Reconciliation Checklist</h2>
+    <ol>
+      <li>Check business bank account transactions.</li>
+      <li>Download Stripe payment report, if income has started.</li>
+      <li>Download invoices for OpenAI, Render, Turso, domain/email and other tools.</li>
+      <li>Enter all income and expenses.</li>
+      <li>Check business-use percentages for home office and shared subscriptions.</li>
+      <li>Save invoices into the correct month folder.</li>
+      <li>Review monthly profit/loss in Reports.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>Founder Time Guide</h2>
+    <p>Record your own development time as <strong>founder investment</strong>, not as a normal deductible wage expense if operating as a sole trader.</p>
+    <p>Use the Work Log to track hours, implied hourly value and project area. This helps with pricing, business valuation and seeing the true effort invested.</p>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>EOFY Preparation Guide</h2>
+  <p>Before 30 June, export your income, expenses and work log CSV files. Save supplier invoices and accountant notes in your business records folder.</p>
+  <a class="button" href="/reports">Go to Reports</a>
+  <a class="button secondary" href="/reconciliations">Monthly Reconciliation</a>
+</section>
+<%- include('layout-bottom') %>

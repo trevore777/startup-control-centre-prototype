@@ -1,0 +1,15 @@
+<%- include('layout-top') %>
+<h1>Due Dates</h1>
+<form method="post" class="panel form-grid">
+  <label>Title <input name="title" required></label>
+  <label>Due date <input type="date" name="due_date" required></label>
+  <label>Category <select name="category"><option>Tax</option><option>GST/BAS</option><option>Renewal</option><option>Subscription</option><option>Backup</option><option>Legal</option><option>General</option></select></label>
+  <label class="check"><input type="checkbox" name="completed"> Completed</label>
+  <label class="full">Notes <textarea name="notes"></textarea></label>
+  <button class="button">Add Due Date</button>
+</form>
+<table><thead><tr><th>Due</th><th>Title</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+<% rows.forEach(r=>{ %><tr class="<%= r.completed?'done':'' %>"><td><%= r.due_date %></td><td><%= r.title %></td><td><%= r.category %></td><td><%= r.completed?'Done':'Open' %></td><td><form class="inline" method="post" action="/toggle-due/<%= r.id %>"><button class="link">Toggle</button></form><form class="inline" method="post" action="/delete/due_dates/<%= r.id %>"><button class="link danger">Delete</button></form></td></tr><% }) %>
+</tbody></table>
+<a class="button secondary" href="/export/due_dates.csv">Export CSV</a>
+<%- include('layout-bottom') %>

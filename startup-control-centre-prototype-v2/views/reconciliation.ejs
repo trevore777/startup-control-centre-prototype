@@ -1,0 +1,18 @@
+<%- include('layout-top') %>
+<h1>Monthly Reconciliation</h1>
+<form method="post" class="panel form-grid">
+  <label>Month <input type="month" name="month" value="<%= monthNow %>" required></label>
+  <label class="check"><input type="checkbox" name="bank_checked"> Bank transactions checked</label>
+  <label class="check"><input type="checkbox" name="stripe_report_saved"> Stripe report saved</label>
+  <label class="check"><input type="checkbox" name="openai_invoice_saved"> OpenAI invoice saved</label>
+  <label class="check"><input type="checkbox" name="hosting_invoice_saved"> Hosting/database invoices saved</label>
+  <label class="check"><input type="checkbox" name="receipts_saved"> Receipts saved</label>
+  <label class="check"><input type="checkbox" name="profit_reviewed"> Profit/loss reviewed</label>
+  <label class="full">Notes <textarea name="notes"></textarea></label>
+  <button class="button">Save Month</button>
+</form>
+<table><thead><tr><th>Month</th><th>Bank</th><th>Stripe</th><th>OpenAI</th><th>Hosting</th><th>Receipts</th><th>Reviewed</th><th></th></tr></thead><tbody>
+<% rows.forEach(r=>{ %><tr><td><%= r.month %></td><td><%= r.bank_checked?'✓':'—' %></td><td><%= r.stripe_report_saved?'✓':'—' %></td><td><%= r.openai_invoice_saved?'✓':'—' %></td><td><%= r.hosting_invoice_saved?'✓':'—' %></td><td><%= r.receipts_saved?'✓':'—' %></td><td><%= r.profit_reviewed?'✓':'—' %></td><td><form method="post" action="/delete/reconciliations/<%= r.id %>"><button class="link danger">Delete</button></form></td></tr><% }) %>
+</tbody></table>
+<a class="button secondary" href="/export/reconciliations.csv">Export CSV</a>
+<%- include('layout-bottom') %>
